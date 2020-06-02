@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./Hangman.css";
 import { randomWord } from "./words";
+import AlphaButton from "./AlphaButtons";
 import img0 from "./0.jpg";
 import img1 from "./1.jpg";
 import img2 from "./2.jpg";
@@ -36,8 +37,8 @@ class Hangman extends Component {
     - add to guessed letters
     - if not in answer, increase number-wrong guesses
   */
-  handleGuess(evt) {
-    let ltr = evt.target.value;
+  handleGuess(ltr) {
+    // let ltr = evt.target.value;
     this.setState((st) => ({
       guessed: st.guessed.add(ltr),
       nWrong: st.nWrong + (st.answer.includes(ltr) ? 0 : 1),
@@ -46,16 +47,16 @@ class Hangman extends Component {
 
   /** generateButtons: return array of letter buttons to render */
   generateButtons() {
-    return "abcdefghijklmnopqrstuvwxyz".split("").map((ltr) => (
-      <button
-        value={ltr}
-        onClick={this.handleGuess}
-        disabled={this.state.guessed.has(ltr)}
-        key={ltr}
-      >
-        {ltr}
-      </button>
-    ));
+    return "abcdefghijklmnopqrstuvwxyz"
+      .split("")
+      .map((ltr) => (
+        <AlphaButton
+          value={ltr}
+          guess={this.handleGuess}
+          disabled={this.state.guessed.has(ltr)}
+          key={ltr}
+        />
+      ));
   }
 
   handleClick() {
