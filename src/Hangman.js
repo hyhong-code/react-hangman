@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./Hangman.css";
+import { randomWord } from "./words";
 import img0 from "./0.jpg";
 import img1 from "./1.jpg";
 import img2 from "./2.jpg";
@@ -17,8 +18,9 @@ class Hangman extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { nWrong: 0, guessed: new Set(), answer: "apple" };
+    this.state = { nWrong: 0, guessed: new Set(), answer: randomWord() };
     this.handleGuess = this.handleGuess.bind(this);
+    console.log(this.state.answer);
   }
 
   /** guessedWord: show current-state of word:
@@ -69,6 +71,7 @@ class Hangman extends Component {
                 : this.props.maxWrong
             ]
           }
+          alt={`${this.state.nWrong} wrong guesses`}
         />
         <h3>Number wrong: {this.state.nWrong}</h3>
         <p className="Hangman-word">{this.guessedWord()}</p>
